@@ -8,8 +8,6 @@
 
 package dataStructures.set;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
-
 import dataStructures.dictionary.AVLDictionary;
 import dataStructures.dictionary.Dictionary;
 import dataStructures.list.ArrayList;
@@ -122,7 +120,7 @@ public class DisjointSetDictionary<T extends Comparable<? super T>> implements D
             T raiz = root(elem);
             for (Tuple2<T, T> tupla : dic.keysValues()) {
                 if (raiz == root(tupla._1())) {
-                    list.append(tupla._2());
+                    list.append(tupla._1());
                 }
             }
         }
@@ -142,10 +140,8 @@ public class DisjointSetDictionary<T extends Comparable<? super T>> implements D
             T raiz2 = root(elem2);
             if (raiz1.compareTo(raiz2) >= 0) {
                 dic.insert(raiz1, raiz2);
-                dic.delete(raiz2);
             } else {
                 dic.insert(raiz2, raiz1);
-                dic.delete(raiz1);
             }
         } else {
             throw new IllegalArgumentException("los elementos no existen");
@@ -164,7 +160,10 @@ public class DisjointSetDictionary<T extends Comparable<? super T>> implements D
     @Override
     public void flatten() {
         // TODO
-
+        for (T elem : dic.keys()) {
+            T root = root(elem);
+            dic.insert(elem, root);
+        }
     }
 
     /**
