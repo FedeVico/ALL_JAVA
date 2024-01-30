@@ -10,7 +10,7 @@ public class DictionaryStringTrieDemo {
         System.out.println("SampleTrie");
         System.out.println(sampleTrie);
         System.out.println("Size = " + sampleTrie.size()); // 6
-        System.out.println("Value of bed = " + sampleTrie.search("bed")); // 2
+        System.out.println("Value of bed = " + sampleTrie.search("bad")); // 2
         System.out.println("Value of cat = " + sampleTrie.search("cat")); // 3
         System.out.println("Value of how = " + sampleTrie.search("how")); // null
 
