@@ -299,6 +299,53 @@ public class SparseVectorTesting {
         }
 
         System.out.println("DONE!\n");
+
+        // ------------------------------------------------------------------------------------------
+        System.out.println("testing copy of vectors");
+
+        SparseVector<Integer> original = new SparseVector<>(3, 0);
+        original.set(0, 1);
+        original.set(1, 2);
+        original.set(2, 3);
+
+        // Copiar el vector disperso original
+        SparseVector<Integer> copia = new SparseVector<>(original);
+
+        // Verificar que la copia es independiente del original
+        copia.set(0, 5); // Modificar el valor en la copia
+
+        // Verificar que la copia tiene los mismos valores que el original antes de la
+        // modificación
+        for (int i = 0; i < original.size(); i++) {
+            assert original.get(i).equals(copia.get(i));
+        }
+        System.out.println("DONE!\n");
+        // ------------------------------------------------------------------------------------------
+
+        System.out.println("testing depth of vectors");
+
+        SparseVector<Integer> vector = new SparseVector<>(N, 0);
+
+        // Probamos la profundidad para un vector con un solo elemento
+        int depth = vector.depthOf(0);
+        assert depth == 0 : "Error en la profundidad del elemento en el índice 0";
+
+        // Probamos la profundidad para un vector con varios elementos
+        int size = vector.size();
+        int lastIndex = size - 1;
+        depth = vector.depthOf(lastIndex);
+        assert depth == N : "Error en la profundidad del último elemento";
+
+        // Probamos algunos casos adicionales
+        int middleIndex = size / 2;
+        depth = vector.depthOf(middleIndex);
+        assert depth == N - 1 : "Error en la profundidad del elemento en el índice " + middleIndex;
+
+        int thirdIndex = size / 3;
+        depth = vector.depthOf(thirdIndex);
+        assert depth == N - 1 : "Error en la profundidad del elemento en el índice " + thirdIndex;
+
+        System.out.println("DONE!\n");
     }
 
     /**

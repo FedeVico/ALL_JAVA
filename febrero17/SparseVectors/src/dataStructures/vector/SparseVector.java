@@ -151,7 +151,6 @@ public class SparseVector<T> implements Iterable<T> {
 
         @Override
         public T next() {
-            // TODO Auto-generated method stub
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
@@ -159,6 +158,44 @@ public class SparseVector<T> implements Iterable<T> {
             current++;
             return valor;
         }
+    }
+
+    // A tiempo parcial
+    public SparseVector(SparseVector<T> copia) {
+        // TODONE
+        this.size = copia.size;
+        this.root = copiarVector(copia.root);
+    }
+
+    private Tree<T> copiarVector(Tree<T> tree) {
+        if (tree instanceof Unif<?>) {
+            return new Unif<T>(((Unif<T>) tree).elem);
+        } else if (tree instanceof Node<?>) {
+            Node<T> node = (Node<T>) tree;
+            return new Node<T>(copiarVector(node.left), copiarVector(node.right));
+        }
+        return null;
+    }
+
+    public int depthOf(int i) {
+        return depthOf(root, size, i);
+    }
+
+    public int depthOf(Tree<T> tree, int sz, int i) {
+        int profundidad = -1;
+        if (i < 0 || i > size - 1)
+            throw new VectorException("out of range");
+        if (tree instanceof Unif<?>) {
+            profundidad = 0;
+        } else if (tree instanceof Node<?>) {
+            Node<T> node = (Node<T>) tree;
+            int mitad = sz / 2;
+            if (i < mitad)
+                profundidad = 1 + depthOf(node.left, mitad, i);
+            else
+                profundidad = 1 + depthOf(node.right, mitad, i - mitad);
+        }
+        return profundidad;
     }
 
     @Override
