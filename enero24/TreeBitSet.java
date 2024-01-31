@@ -7,7 +7,7 @@ import dataStructures.list.ArrayList;
 // import dataStructures.list.LinkedList;
 
 public class TreeBitSet {
-  private static final int BITS_PER_LEAF = 64;
+  private static final int BITS_PER_LEAF = LongBits.BITS_PER_LONG;
 
   private interface Tree {
     long size();

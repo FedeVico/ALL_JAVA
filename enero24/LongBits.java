@@ -1,6 +1,6 @@
 public class LongBits {
 
-    public static final int bitsPerLong = Long.SIZE;
+    public static final int BITS_PER_LONG = Long.SIZE;
 
     /**
      * Cuenta el número de unos en la representación binaria de un long.

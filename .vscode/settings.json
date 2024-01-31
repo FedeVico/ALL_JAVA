@@ -6,5 +6,6 @@
     "enero23/java",
     "enero20/java/java/src",
     "enero24"
-  ]
+  ],
+  "java.debug.settings.onBuildFailureProceed": true
 }
