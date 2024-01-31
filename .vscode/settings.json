@@ -3,9 +3,10 @@
     "septiembre20/java/java/src",
     "septiembre18/BiDictionary/BiDictionary/src",
     "febrero18/DisjointSet/DisjointSet/src",
+    "febrero17/SparseVectors/src/dataStructures/vector",
+    "enero24",
     "enero23/java",
-    "enero20/java/java/src",
-    "enero24"
+    "febrero17/SparseVectors/src"
   ],
   "java.debug.settings.onBuildFailureProceed": true
 }
