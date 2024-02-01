@@ -1,3 +1,5 @@
+package src;
+
 /**
  * Weighted binary trees with information in the leaves.
  *

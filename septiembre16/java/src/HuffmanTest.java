@@ -1,3 +1,5 @@
+package src;
+
 import dataStructures.dictionary.AVLDictionary;
 import dataStructures.dictionary.Dictionary;
 import dataStructures.list.LinkedList;
@@ -76,7 +78,6 @@ public class HuffmanTest {
         Dictionary<Character, List<Integer>> hc = Huffman.huffmanCode(ht);
         List<Integer> codedMsg = Huffman.encode(msg, hc);
         System.out.println(codedMsg);
-
 
         // Exercise 5
 

@@ -1,3 +1,5 @@
+package src;
+
 /**
  * Huffman trees and codes.
  *
