@@ -2,11 +2,12 @@
   "java.project.sourcePaths": [
     "septiembre20/java/java/src",
     "septiembre18/BiDictionary/BiDictionary/src",
+    "septiembre16/java",
     "febrero18/DisjointSet/DisjointSet/src",
     "febrero17/SparseVectors/src",
     "enero24",
     "enero23/java",
-    "septiembre16/java"
+    "febrero15/doubleEndedQueue.src/src"
   ],
   "java.debug.settings.onBuildFailureProceed": true
 }

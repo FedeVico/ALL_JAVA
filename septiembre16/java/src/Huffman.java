@@ -28,7 +28,7 @@ public class Huffman {
     // Exercise 1
     public static Dictionary<Character, Integer> weights(String s) {
         // to do
-        Dictionary<Character, Integer> dic = new AVLDictionary();
+        Dictionary<Character, Integer> dic = new AVLDictionary<>();
         for (int i = 0; i < s.length(); i++) {
             char actual = s.charAt(i);
             int current = 1;
@@ -43,12 +43,12 @@ public class Huffman {
     // Exercise 2.a
     public static PriorityQueue<WLeafTree<Character>> huffmanLeaves(String s) {
         // to do
-        PriorityQueue<WLeafTree<Character>> result = new BinaryHeapPriorityQueue<>();
-        Dictionary<Character, Integer> dic = weights(s);
-        for (Tuple2<Character, Integer> values : dic.keysValues()) {
-            result.enqueue(new WLeafTree<Character>(values._1(), values._2()));
+        PriorityQueue<WLeafTree<Character>> hojas = new BinaryHeapPriorityQueue<>();
+        Dictionary<Character, Integer> weights = weights(s);
+        for (Tuple2<Character, Integer> hoja : weights.keysValues()) {
+            hojas.enqueue(new WLeafTree<Character>(hoja._1(), hoja._2()));
         }
-        return result;
+        return hojas;
     }
 
     // Exercise 2.b
