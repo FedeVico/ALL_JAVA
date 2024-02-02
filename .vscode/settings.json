@@ -5,9 +5,10 @@
     "septiembre16/java",
     "febrero18/DisjointSet/DisjointSet/src",
     "febrero17/SparseVectors/src",
+    "febrero15/doubleEndedQueue.src/src",
     "enero24",
     "enero23/java",
-    "febrero15/doubleEndedQueue.src/src"
+    "febrero23"
   ],
   "java.debug.settings.onBuildFailureProceed": true
 }
