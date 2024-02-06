@@ -1,10 +1,10 @@
-import dataStructures.dictionary.HashBiDictionary;
 import dataStructures.dictionary.HashDictionary;
 import dataStructures.list.List;
 import dataStructures.dictionary.BiDictionary;
 import dataStructures.dictionary.Dictionary;
+import dataStructures.dictionary.HashBiDictionary;
 
-public class Main {
+public class MainBiDictionary {
     public static void main(String[] args) {
         // Completa la clase dataStructures.dictionary/HashBDictionary.java
         BiDictionary<String, Integer> bdict = new HashBiDictionary<>();
@@ -25,17 +25,17 @@ public class Main {
 
         // apartados c y d
         System.out.println("Valor asociado a one: " + bdict.valueOf("one"));
-        System.out.println("Clave asociada a 1: " + bdict.keyOf(1));
+        System.out.println("Clave asociada a 3: " + bdict.keyOf(3));
         System.out.println();
 
         // apartado e
-        System.out.println("Se borra la asociaci�n con clave \"one\"");
+        System.out.println("Se borra la asociacion con clave \"one\"");
         bdict.deleteByKey("one");
         System.out.println(bdict);
         System.out.println();
 
         // apartado f
-        System.out.println("Se borra la asociaci�n con valor 3");
+        System.out.println("Se borra la asociacion con valor 3");
         bdict.deleteByValue(3);
         System.out.println(bdict);
         System.out.println();
@@ -52,8 +52,8 @@ public class Main {
         // Ahora no es inyectivo
         dict.insert("threeduplicate", 3);
         try {
-            @SuppressWarnings("unused")
             BiDictionary<String, Integer> bdictTest2 = HashBiDictionary.toBiDictionary(dict);
+            System.out.println("A partir de " + dict + " se genera " + bdictTest2);
         } catch (IllegalArgumentException e) {
             System.out.println("Debe entrar por aqui ya que el diccionario no es inyectivo");
             System.out.println();

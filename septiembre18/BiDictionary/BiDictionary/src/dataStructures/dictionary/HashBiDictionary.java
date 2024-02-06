@@ -147,21 +147,20 @@ public class HashBiDictionary<K, V> implements BiDictionary<K, V> {
 		// TODO
 		// comprobar que todos los valores de bdic comparado con bd tienen su relacion y
 		// son iguales
-		boolean permutacion = true;
-		Set<K> conj1 = new AVLSet<>();
-		Set<K> conj2 = new AVLSet<>();
-		for (Tuple2<K, K> values : bd.keysValues()) {
-			conj1.insert(values._1());
-			conj2.insert(values._2());
+		boolean permutation = true;
+		Set<K> keys = new AVLSet<>();
+		Set<K> values = new AVLSet<>();
+
+		for (Tuple2<K, K> entry : bd.keysValues()) {
+			keys.insert(entry._1());
+			values.insert(entry._2());
 		}
-		Iterator<K> it = conj1.iterator();
-		while (it.hasNext() && permutacion) {
-			if (!bd.isDefinedKeyAt(it.next())) {
-				permutacion = false;
+		for (K key : keys) {
+			if (!values.isElem(key)) {
+				permutation = false;
 			}
 		}
-
-		return permutacion;
+		return permutation;
 	}
 
 	// Solo alumnos con evaluaci�n por examen final.
