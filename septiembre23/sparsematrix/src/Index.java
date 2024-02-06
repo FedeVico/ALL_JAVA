@@ -1,5 +1,3 @@
-package sparsematrix.src;
-
 public class Index implements Comparable<Index> {
     private final int row;
     private final int column;

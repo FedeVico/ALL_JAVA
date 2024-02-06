@@ -1,16 +1,17 @@
 {
   "java.project.sourcePaths": [
+    "septiembre23/sparsematrix/src",
     "septiembre20/java/java/src",
     "septiembre18/BiDictionary/BiDictionary/src",
+    "septiembre18",
     "septiembre16/java",
-    "febrero23",
     "febrero18/DisjointSet/DisjointSet/src",
     "febrero17/SparseVectors/src",
     "febrero15/doubleEndedQueue.src/src",
     "enero24",
     "enero23/java",
     "enero23",
-    "septiembre18"
+    "septiembre23"
   ],
   "java.debug.settings.onBuildFailureProceed": true
 }

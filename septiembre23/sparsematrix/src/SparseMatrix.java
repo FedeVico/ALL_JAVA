@@ -1,3 +1,4 @@
+
 /******************************************************************************
  * Student's name: ?????????????????????????????????????
  * Identity number (DNI if Spanish/passport if Erasmus): ???????????????????
@@ -7,7 +8,7 @@
  * Data Structures. Grados en Informatica. UMA.
  *****************************************************************************/
 
-package sparsematrix.src;
+import java.util.Iterator;
 
 import dataStructures.dictionary.AVLDictionary;
 import dataStructures.dictionary.Dictionary;
@@ -49,10 +50,11 @@ public class SparseMatrix {
     // | = Exercise d - index
     private Index index(int r, int c) {
         // todo
-        if (r < this.rows && r < this.columns && r >= 0 && c >= 0)
-            return new Index(r, c);
-        else
+        if (r < 0 || c < 0 || r >= rows || c >= columns) {
             throw new IllegalArgumentException();
+        }
+        Index ind = new Index(r, c);
+        return ind;
     }
 
     // | = Exercise e - set
@@ -92,13 +94,13 @@ public class SparseMatrix {
     // | = Exercise h - transpose
     public SparseMatrix transpose() {
         // todo
-        SparseMatrix result = new SparseMatrix(columns, rows);
-        for (Index ind : nonZeros.keys()) {
-            int original = value(ind);
-            Index indTrans = new Index(ind.getColumn(), ind.getRow());
-            result.update(indTrans, original);
+        SparseMatrix res = new SparseMatrix(columns, rows);
+        for (Index indices : nonZeros.keys()) {
+            Integer valor = value(indices);
+            Index indT = new Index(indices.getColumn(), indices.getRow());
+            res.update(indT, valor);
         }
-        return result;
+        return res;
     }
 
     // | = Exercise i - toString
@@ -117,8 +119,8 @@ public class SparseMatrix {
     }
 
     // | = Exercise j - fromList and fromList2
-    // Complexity using get and ArrayList:
-    // Complexity using get and LinkedList:
+    // Complexity using get and ArrayList: n
+    // Complexity using get and LinkedList: n
     public static SparseMatrix fromList(int r, int c, List<Integer> list) {
         // todo
         SparseMatrix m = new SparseMatrix(r, c);
@@ -132,10 +134,18 @@ public class SparseMatrix {
         return m;
     }
 
-    // Complexity using iterator and ArrayList:
-    // Complexity using iterator and LinkedList:
+    // Complexity using iterator and ArrayList: n
+    // Complexity using iterator and LinkedList: n
     public static SparseMatrix fromList2(int r, int c, List<Integer> list) {
         // todo
-        return null;
+        SparseMatrix m = new SparseMatrix(r, c);
+        Iterator<Integer> it = list.iterator();
+        while (it.hasNext()) {
+            int row = it.next();
+            int column = it.next();
+            int value = it.next();
+            m.set(row, column, value);
+        }
+        return m;
     }
 }
