@@ -10,12 +10,14 @@ public class DictionaryStringTrieDemo {
 																						// sampleTrie3, sampleTrie4
 		System.out.println("SampleTrie");
 		System.out.println(sampleTrie);
+		System.out.println("isEmpty? = " + sampleTrie.isEmpty()); // False
 		System.out.println("Size = " + sampleTrie.size()); // 6
 		System.out.println("Value of bed = " + sampleTrie.search("bed")); // 2
 		System.out.println("Value of cat = " + sampleTrie.search("cat")); // 3
 		System.out.println("Value of how = " + sampleTrie.search("how")); // null
 
 		DictionaryStringTrie<Integer> trie = new DictionaryStringTrie<>();
+
 		trie.insert("bat", 0);
 		trie.insert("be", 1);
 		trie.insert("bed", 2);
@@ -23,6 +25,7 @@ public class DictionaryStringTrieDemo {
 		trie.insert("to", 4);
 		trie.insert("toe", 5);
 		System.out.println("\nSampleTrie built with constructor and insert");
+
 		System.out.println(trie); // same as sampleTrie
 
 		System.out.println("Strings = " + sampleTrie.strings());

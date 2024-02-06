@@ -30,28 +30,29 @@ public class DictionaryStringTrie<V> {
 
   protected Node<V> root;
 
- /*****************************************************************************
-  * DO NOT WRITE ANY CODE ABOVE
-  ****************************************************************************/
+  /*****************************************************************************
+   * DO NOT WRITE ANY CODE ABOVE
+   ****************************************************************************/
 
   // | = Exercise a - constructor
-  public DictionaryStringTrie()
-  {
+  public DictionaryStringTrie() {
     // TODO
-      root = new Node<>();
+    root = new Node<>();
   }
 
   // | = Exercise b - isEmpty
   public boolean isEmpty() {
     // TODO
-      return root == null;
+    return root == null;
   }
 
   // | = Exercise c - sizeValue
   protected static <V> int sizeValue(V value) {
     // TODO
-      if (value == null) return 0;
-      else return 1;
+    if (value == null)
+      return 0;
+    else
+      return 1;
   }
 
   // | = Exercise d - size
@@ -62,22 +63,24 @@ public class DictionaryStringTrie<V> {
 
   protected static <V> int size(Node<V> node) {
     // TODO
-      if (node == null) return sizeValue(node.value);
-      Iterator<Node<V>> it = node.children.values().iterator();
-      int totalSize = sizeValue(node.value);
-      while (it.hasNext()) {
-          totalSize += size(it.next());
-      }
-   return totalSize;
+    if (node == null)
+      return sizeValue(node.value);
+    Iterator<Node<V>> it = node.children.values().iterator();
+    int totalSize = sizeValue(node.value);
+    while (it.hasNext()) {
+      totalSize += size(it.next());
+    }
+    return totalSize;
   }
 
   // | = Exercise e - childOf
   protected static <V> Node<V> childOf(char c, Node<V> node) {
     // TODO
-      if (node == null || !node.children.isDefinedAt(c)) return null;
-      else {
-          return node.children.valueOf(c);
-      }
+    if (node == null || !node.children.isDefinedAt(c))
+      return null;
+    else {
+      return node.children.valueOf(c);
+    }
   }
 
   // | = Exercise f - search
@@ -88,40 +91,44 @@ public class DictionaryStringTrie<V> {
 
   protected static <V> V search(String str, Node<V> node) {
     // TODO
-      if (node == null) return null;
-      else if (str.isEmpty()) return node.value;
-      else {
-          char c = str.charAt(0);
-          String suffix = str.substring(1);
-          return search(suffix, childOf(c, node));
-      }
+    if (node == null)
+      return null;
+    else if (str.isEmpty())
+      return node.value;
+    else {
+      char c = str.charAt(0);
+      String suffix = str.substring(1);
+      return search(suffix, childOf(c, node));
+    }
   }
 
   // | = Exercise g - insert
   public void insert(String str, V value) {
     // TODO
-      root = insert(str, value, root);
+    root = insert(str, value, root);
   }
 
   protected static <V> Node<V> insert(String str, V value, Node<V> node) {
     // TODO
-      if (node == null && str.isEmpty()) {
-          node = new Node<>();
-          node.value = value;
-      } else if (node == null) {
-          char c = str.charAt(0);
-          String suffix = str.substring(1);
-          node = new Node<>();
-          node.children.insert(c, insert(suffix, value,null));
-      } else if (str.isEmpty()) {
-          node.value = value;
-      } else {
-          char c = str.charAt(0);
-          String suffix = str.substring(1);
-          Node<V> child = childOf(c, node);
-          if (child == null) node.children.insert(c, insert(suffix, value, null));
-          else node.children.insert(c, insert(suffix, value, child));
-      }
+    if (node == null && str.isEmpty()) {
+      node = new Node<>();
+      node.value = value;
+    } else if (node == null) {
+      char c = str.charAt(0);
+      String suffix = str.substring(1);
+      node = new Node<>();
+      node.children.insert(c, insert(suffix, value, null));
+    } else if (str.isEmpty()) {
+      node.value = value;
+    } else {
+      char c = str.charAt(0);
+      String suffix = str.substring(1);
+      Node<V> child = childOf(c, node);
+      if (child == null)
+        node.children.insert(c, insert(suffix, value, null));
+      else
+        node.children.insert(c, insert(suffix, value, child));
+    }
     return node;
   }
 
@@ -132,41 +139,42 @@ public class DictionaryStringTrie<V> {
   // | = Exercise e1 - strings
   public List<String> strings() {
     // TODO
-    return strings(root, "");
+    return strings(root);
   }
 
-  protected static <V> List<String> strings(Node<V> node, String prefix) {
+  protected static <V> List<String> strings(Node<V> node) {
     // TODO
-      List<String> listaPal = new ArrayList<>();
-
-      if (node == null) return listaPal;
-      if (node.value != null && node.children.isEmpty()) listaPal.append(prefix);
-
-      for (Tuple2<Character,Node<V>> children : node.children.keysValues()){
-          char c = children._1();
-          Node<V> childrenPal = children._2();
-          List<String> palabrasChild = strings(childrenPal, prefix + c);
-
-          for (String palabraChild : palabrasChild){
-              listaPal.append(palabraChild);
-          }
-      }
+    List<String> listaPal = new ArrayList<>();
+    if (node == null)
       return listaPal;
+    if (node.value != null && node.children.isEmpty())
+      listaPal.append("");
+
+    for (Tuple2<Character, Node<V>> nodos : node.children.keysValues()) {
+      char c = nodos._1();
+      Node<V> next = nodos._2();
+      List<String> palabra = strings(next);
+      for (String pal : palabra) {
+        listaPal.append(c + pal);
+      }
+    }
+    return listaPal;
   }
 
   // | = Exercise e2 - fromList
   public static DictionaryStringTrie<Integer> fromList(List<String> list) {
     // TODO
-      DictionaryStringTrie<Integer> trie = new DictionaryStringTrie<Integer>();
+    DictionaryStringTrie<Integer> trie = new DictionaryStringTrie<Integer>();
 
-      for (String palabra : list) {
-          Integer valor = trie.search(palabra);
-          if (valor != null) trie.insert(palabra, valor + 1);
-          else {
-              trie.insert(palabra, 1);
-          }
+    for (String palabra : list) {
+      Integer valor = trie.search(palabra);
+      if (valor != null)
+        trie.insert(palabra, valor + 1);
+      else {
+        trie.insert(palabra, 1);
       }
-      return trie;
+    }
+    return trie;
   }
 
   /*****************************************************************************
@@ -180,7 +188,7 @@ public class DictionaryStringTrie<V> {
       sb.append(' ');
       sb.append(root.value);
       sb.append('\n');
-      toString(sb,1, root);
+      toString(sb, 1, root);
     }
     return sb.toString();
   }
@@ -201,35 +209,38 @@ public class DictionaryStringTrie<V> {
   }
 
   private static void tabulate(StringBuilder sb, int n) {
-    for (int i = 0; i < 6*n; i++) {
+    for (int i = 0; i < 6 * n; i++) {
       sb.append(' ');
     }
   }
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
     DictionaryStringTrie<?> that = (DictionaryStringTrie<?>) o;
     return equals(root, that.root);
   }
 
   private static <V> boolean equals(Node<V> node, Node<?> that) {
-    if (node == that) return true;
-    if(!Objects.equals(node.value, that.value))
+    if (node == that)
+      return true;
+    if (!Objects.equals(node.value, that.value))
       return false;
     // same values
-    for(char c : node.children.keys())
-      if(!that.children.isDefinedAt(c))
+    for (char c : node.children.keys())
+      if (!that.children.isDefinedAt(c))
         return false;
-    for(char c : that.children.keys())
-      if(!node.children.isDefinedAt(c))
+    for (char c : that.children.keys())
+      if (!node.children.isDefinedAt(c))
         return false;
     // same keys
-    for(Tuple2<Character, Node<V>> t : node.children.keysValues()) {
+    for (Tuple2<Character, Node<V>> t : node.children.keysValues()) {
       char c = t._1();
       Node<V> child = t._2();
-      if(!equals(child, that.children.valueOf(c)))
+      if (!equals(child, that.children.valueOf(c)))
         return false;
     }
     // same associations
@@ -237,7 +248,7 @@ public class DictionaryStringTrie<V> {
   }
 
   public static DictionaryStringTrie<Integer> sampleTrie() {
-    // bat -> 0  be -> 1  bed -> 2  cat -> 3  to -> 4  toe -> 5
+    // bat -> 0 be -> 1 bed -> 2 cat -> 3 to -> 4 toe -> 5
     DictionaryStringTrie<Integer> trie = new DictionaryStringTrie<>();
     Node<Integer> n0 = new Node<>();
     Dictionary<Character, Node<Integer>> d0 = n0.children;
@@ -259,18 +270,18 @@ public class DictionaryStringTrie<V> {
     Node<Integer> n9 = new Node<>();
     Node<Integer> n10 = new Node<>();
     Node<Integer> n11 = new Node<>();
-    d0.insert('b',n1);
-    d0.insert('c',n2);
-    d0.insert('t',n3);
-    d1.insert('a',n4);
-    d1.insert('e',n5);
-    d2.insert('a',n6);
-    d3.insert('o',n7);
-    d4.insert('t',n8);
-    d5.insert('d',n9);
+    d0.insert('b', n1);
+    d0.insert('c', n2);
+    d0.insert('t', n3);
+    d1.insert('a', n4);
+    d1.insert('e', n5);
+    d2.insert('a', n6);
+    d3.insert('o', n7);
+    d4.insert('t', n8);
+    d5.insert('d', n9);
     n5.value = 1;
-    d6.insert('t',n10);
-    d7.insert('e',n11);
+    d6.insert('t', n10);
+    d7.insert('e', n11);
     n7.value = 4;
     n8.value = 0;
     n9.value = 2;
@@ -281,7 +292,7 @@ public class DictionaryStringTrie<V> {
   }
 
   public static DictionaryStringTrie<Integer> sampleTrie1() {
-    // a -> 3  b -> 2  c -> 1
+    // a -> 3 b -> 2 c -> 1
     DictionaryStringTrie<Integer> trie = new DictionaryStringTrie<>();
     Node<Integer> n0 = new Node<>();
     Node<Integer> n1 = new Node<>();
@@ -298,7 +309,7 @@ public class DictionaryStringTrie<V> {
   }
 
   public static DictionaryStringTrie<Integer> sampleTrie2() {
-    // a -> 1  ab -> 2  abc -> 3  abd -> 4  acdef -> 5
+    // a -> 1 ab -> 2 abc -> 3 abd -> 4 acdef -> 5
     DictionaryStringTrie<Integer> trie = new DictionaryStringTrie<>();
     Node<Integer> n0 = new Node<>();
     Node<Integer> n1 = new Node<>();
@@ -344,7 +355,7 @@ public class DictionaryStringTrie<V> {
   }
 
   public static DictionaryStringTrie<Integer> sampleTrie4() {
-    // abcd -> 1  def -> 2
+    // abcd -> 1 def -> 2
     DictionaryStringTrie<Integer> trie = new DictionaryStringTrie<>();
     Node<Integer> n0 = new Node<>();
     Node<Integer> n1 = new Node<>();
