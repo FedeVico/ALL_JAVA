@@ -10,7 +10,8 @@ public class KruskalTest {
 
     public static void main(String[] args) {
         WeightedGraph<String, Integer> g1 = new DictionaryWeightedGraph<>();
-        g1.addVertex("a");
+        String a = "a";
+        g1.addVertex(a);
         g1.addVertex("b");
         g1.addVertex("c");
         g1.addVertex("d");
@@ -24,10 +25,11 @@ public class KruskalTest {
         g1.addEdge("c", "e", 6);
         g1.addEdge("d", "e", 4);
 
+        System.out.println("Sucesores de a: " + g1.successors(a));
         test(g1, "g1");
 
         WeightedGraph<String, Integer> g2 = new DictionaryWeightedGraph<>();
-        g2.addVertex("a");
+        g2.addVertex(a);
         g2.addVertex("b");
         g2.addVertex("c");
         g2.addVertex("d");
@@ -54,7 +56,7 @@ public class KruskalTest {
         System.out.println(name + ": " + g.numVertices() + " vertices y " + g.numEdges() + " aristas");
         System.out.println(g);
         System.out.println("kruskal: " + Kruskal.kruskal(g));
-
+        System.out.println("kruskals: " + Kruskal.kruskals(g));
         System.out.println();
     }
 

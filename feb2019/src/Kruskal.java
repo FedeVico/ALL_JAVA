@@ -15,7 +15,7 @@
 
 import dataStructures.graph.WeightedGraph;
 import dataStructures.graph.WeightedGraph.WeightedEdge;
-
+import dataStructures.dictionary.AVLDictionary;
 import dataStructures.dictionary.Dictionary;
 import dataStructures.dictionary.HashDictionary;
 import dataStructures.priorityQueue.PriorityQueue;
@@ -28,46 +28,42 @@ import dataStructures.set.HashSet;
 
 public class Kruskal {
 	public static <V, W> Set<WeightedEdge<V, W>> kruskal(WeightedGraph<V, W> g) {
-		Set<WeightedEdge<V, W>> t = new HashSet<>();
-
-		PriorityQueue<WeightedEdge<V, W>> PQ = new LinkedPriorityQueue<>();
+		// Variables
+		Set<WeightedEdge<V, W>> T = new HashSet<>();
+		PriorityQueue<WeightedEdge<V, W>> PQ = new BinaryHeapPriorityQueue<>();
+		Dictionary<V, V> dict = new HashDictionary<>();
+		// Inicializar variables
 		for (WeightedEdge<V, W> edge : g.edges()) {
 			PQ.enqueue(edge);
 		}
-
-		Dictionary<V, V> Dict = new HashDictionary<>();
 		for (V vertex : g.vertices()) {
-			Dict.insert(vertex, vertex);
+			dict.insert(vertex, vertex);
 		}
-
+		// ALGORITMO
 		while (!PQ.isEmpty()) {
-			WeightedEdge<V, W> edge = PQ.first();
+			WeightedEdge<V, W> arista = PQ.first();
 			PQ.dequeue();
-			V a = representante(edge.source(), Dict);
-			V b = representante(edge.destination(), Dict);
-			if (!a.equals(b)) {
-				t.insert(edge);
-				Dict.insert(b, edge.source());
+			V repreSRC = representante(arista.source(), dict);
+			V repreDST = representante(arista.destination(), dict);
+			if (!repreSRC.equals(repreDST)) {
+				dict.insert(repreDST, arista.source());
+				T.insert(arista);
 			}
 		}
-		return t;
+		return T;
 	}
 
-	private static <V> V representante(V vertex, Dictionary<V, V> dict) {
-		V value = dict.valueOf(vertex);
-
-		if (value.equals(vertex)) {
-			return vertex;
-		} else {
-			return representante(value, dict);
-		}
+	public static <V> V representante(V v, Dictionary<V, V> dic) {
+		V repre = dic.valueOf(v);
+		if (repre.equals(v))
+			return repre;
+		else
+			return representante(repre, dic);
 	}
 
 	// Sólo para evaluación continua / only for part time students
 	public static <V, W> Set<Set<WeightedEdge<V, W>>> kruskals(WeightedGraph<V, W> g) {
-
 		// COMPLETAR
-
 		return null;
 	}
 }

@@ -94,26 +94,20 @@ public class DictionaryWeightedGraph<V, W extends Comparable<? super W>> impleme
 
     public void addEdge(V src, V dst, W w) {
         // COMPLETAR
-        Dictionary<V, W> srcEdges = graph.valueOf(src);
-        Dictionary<V, W> dstEdges = graph.valueOf(dst);
-
-        if (srcEdges == null || dstEdges == null) {
-            throw new GraphException("vertices no existen");
-        } else {
-            srcEdges.insert(dst, w);
-            // dstEdges.insert(src, w); // solo con el de arriba ya hace la doble insercion
-        }
+        if (!graph.isDefinedAt(src) || !graph.isDefinedAt(dst))
+            throw new GraphException();
+        Dictionary<V, W> dic = graph.valueOf(src);
+        dic.insert(dst, w);
     }
 
     public Set<Tuple2<V, W>> successors(V v) {
         // COMPLETAR
-        if (!graph.isDefinedAt(v)) {
-            throw new GraphException("vertices no definidos");
-        }
+        if (!graph.isDefinedAt(v))
+            throw new GraphException();
         Set<Tuple2<V, W>> res = new HashSet<>();
-        Dictionary<V, W> edges = graph.valueOf(v);
-        for (Tuple2<V, W> suc : edges.keysValues()) {
-            res.insert(suc);
+        Dictionary<V, W> dic = graph.valueOf(v);
+        for (Tuple2<V, W> values : dic.keysValues()) {
+            res.insert(values);
         }
         return res;
     }
@@ -124,8 +118,7 @@ public class DictionaryWeightedGraph<V, W extends Comparable<? super W>> impleme
         for (Tuple2<V, Dictionary<V, W>> src : graph.keysValues()) {
             for (Tuple2<V, W> dst : src._2().keysValues()) {
                 WeightedEdge<V, W> edge = new WE<>(src._1(), dst._1(), dst._2());
-                if (!edges.isElem(edge))
-                    edges.insert(edge);
+                edges.insert(edge);
             }
         }
         return edges;
