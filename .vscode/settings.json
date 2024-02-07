@@ -1,6 +1,7 @@
 {
   "java.project.sourcePaths": [
     "septiembre23/sparsematrix/src",
+    "septiembre23",
     "septiembre20/java/java/src",
     "septiembre18/BiDictionary/BiDictionary/src",
     "septiembre18",
@@ -11,7 +12,7 @@
     "enero24",
     "enero23/java",
     "enero23",
-    "septiembre23"
+    "feb2019/src"
   ],
   "java.debug.settings.onBuildFailureProceed": true
 }
